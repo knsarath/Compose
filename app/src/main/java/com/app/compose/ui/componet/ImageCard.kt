@@ -13,11 +13,16 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.app.compose.ui.exceptFirstWord
+import com.app.compose.ui.firstWord
 
 
 @Composable
@@ -62,7 +67,12 @@ fun ImageCard(
                         fontFamily = montserratFontFamily
                     )
                     Text(
-                        text = contentDescription,
+                        text = buildAnnotatedString {
+                            withStyle(style = SpanStyle(color = Color.Green)) {
+                                append(contentDescription.firstWord())
+                            }
+                            append(" ${contentDescription.exceptFirstWord()}")
+                        },
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                             .padding(bottom = 16.dp),
