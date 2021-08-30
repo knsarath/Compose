@@ -1,5 +1,6 @@
 package com.app.compose.ui.componet
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -9,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -17,6 +19,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
@@ -36,8 +39,12 @@ fun ImageCard(
     title: String,
     modifier: Modifier
 ) {
-    val borderColor = remember { mutableStateOf(Color.Red) }
-    val clickAction: (Boolean) -> Unit
+    val context = LocalContext.current
+    val borderColor = remember { mutableStateOf(borderColorConfig(clicked = false)) }
+    val clicked = remember { mutableStateOf(false) }
+    val clickAction: (Boolean) -> Unit = {
+        borderColor.value = borderColorConfig(clicked = it)
+    }
     Card(
         modifier = modifier
             .fillMaxWidth(),
@@ -56,7 +63,8 @@ fun ImageCard(
                     enabled = true,
                     onClickLabel = "Clickable image",
                     onClick = {
-                        borderColor.value = Color.Yellow
+                        clicked.value = clicked.value.not()
+                        clickAction(clicked.value)
                     }
                 )
             )
@@ -102,5 +110,12 @@ fun ImageCard(
             }
         }
 
+    }
+}
+
+private fun borderColorConfig(clicked: Boolean): Color {
+    return when {
+        clicked -> Color.Red
+        else -> Color.Transparent
     }
 }
