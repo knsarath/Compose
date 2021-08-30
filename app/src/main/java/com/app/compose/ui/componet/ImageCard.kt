@@ -51,7 +51,8 @@ fun ImageCard(
                     .align(Alignment.BottomStart)
                     .background(
                         Brush.verticalGradient(
-                            colors = (listOf(Color.Transparent, Color.Black))
+                            colors = (listOf(Color.Transparent, Color.Black)),
+                            startY = 0f, endY = 120f
                         )
                     ),
                 contentAlignment = Alignment.BottomStart
@@ -75,7 +76,7 @@ fun ImageCard(
                         },
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
-                            .padding(bottom = 16.dp),
+                            .padding(bottom = 16.dp, start = 16.dp, end = 16.dp),
                         fontSize = 12.sp,
                         color = Color.White,
                         fontStyle = FontStyle.Italic,

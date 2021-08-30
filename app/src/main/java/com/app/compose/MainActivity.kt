@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.FontWeight.Companion.W400
 import androidx.compose.ui.text.font.FontWeight.Companion.W600
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.app.compose.ui.componet.ImageCard
@@ -31,15 +32,24 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Box(modifier = Modifier.fillMaxWidth(0.5f)) {
-                    ImageCard(
-                        painter = painterResource(id = R.drawable.bike),
-                        contentDescription = "Canyon mountain Bike",
-                        title = "Canyon",
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
+            cardItem()
+        }
+    }
+
+
+    @Preview
+    @Composable
+    fun cardItem() {
+        Column(modifier = Modifier
+            .padding(16.dp)
+            .size(width = 320.dp, height = 200.dp)) {
+            Box(modifier = Modifier.fillMaxWidth(0.5f)) {
+                ImageCard(
+                    painter = painterResource(id = R.drawable.bike),
+                    contentDescription = "Canyon mountain Bike",
+                    title = "Canyon",
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
     }
